@@ -1,0 +1,69 @@
+/* 答题页 —— 暗底 + 霓虹粉 */
+.container {
+  min-height: 100vh;
+  background: #0D0D1A;
+  padding: 0 32rpx;
+}
+
+.progress-bar {
+  width: 100%; height: 6rpx;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3rpx;
+  margin-top: 36rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF2A7D, #7B2FFF);
+  border-radius: 3rpx;
+  transition: width 0.35s ease;
+}
+
+.progress-text { text-align: right; font-size: 24rpx; color: rgba(255,255,255,0.25); margin-top: 14rpx; margin-bottom: 48rpx; }
+
+.question-card { border-radius: 0; padding: 0; }
+
+.question-number { font-size: 22rpx; color: #FF2A7D; font-weight: 700; margin-bottom: 16rpx; letter-spacing: 3rpx; }
+
+.question-text { font-size: 38rpx; font-weight: 800; color: #fff; line-height: 1.45; margin-bottom: 56rpx; }
+
+.option {
+  display: flex; align-items: flex-start;
+  padding: 28rpx 24rpx; margin-bottom: 16rpx;
+  background: #12122A;
+  border: 2rpx solid rgba(255,255,255,0.04);
+  border-radius: 20rpx;
+  transition: all 0.2s ease;
+}
+
+.option:active { transform: scale(0.98); }
+
+.option-selected {
+  border-color: rgba(255,42,125,0.5);
+  background: rgba(255,42,125,0.06);
+}
+
+.option-label {
+  width: 48rpx; height: 48rpx; border-radius: 50%;
+  background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.3);
+  font-size: 24rpx; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-right: 20rpx; flex-shrink: 0; transition: all 0.2s ease;
+}
+
+.option-selected .option-label { background: linear-gradient(135deg, #FF2A7D, #7B2FFF); color: #fff; }
+
+.option-text { font-size: 30rpx; color: rgba(255,255,255,0.7); line-height: 1.6; padding-top: 6rpx; }
+
+.complete-card { text-align: center; padding: 140rpx 40rpx; }
+.complete-icon { font-size: 96rpx; margin-bottom: 24rpx; }
+.complete-text { font-size: 40rpx; font-weight: 800; color: #fff; margin-bottom: 12rpx; }
+.complete-desc { font-size: 28rpx; color: rgba(255,255,255,0.3); margin-bottom: 64rpx; }
+
+.btn-view-result {
+  background: linear-gradient(135deg, #FF2A7D, #7B2FFF);
+  color: #fff; border: none; border-radius: 24rpx;
+  padding: 32rpx 0; font-size: 34rpx; font-weight: 700;
+  box-shadow: 0 8rpx 40rpx rgba(255,42,125,0.3);
+}

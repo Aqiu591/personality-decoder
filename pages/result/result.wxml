@@ -1,0 +1,77 @@
+<!-- 结果页 - 你的答案指向这个方向 -->
+<view class="container" wx:if="{{result}}">
+
+  <!-- 不是"系统鉴定"。是"你的选择指向——" -->
+  <view class="reveal-header">
+    <view class="reveal-label">你的身份码</view>
+    <view class="reveal-code">{{result.code}}</view>
+    <view class="reveal-type">{{result.typeName}}</view>
+    <view class="reveal-oneliner">"{{result.oneLiner}}"</view>
+    <view class="reveal-hint">👇 往下翻，一层一层看</view>
+  </view>
+
+  <!-- 逐层揭开 -->
+  <view class="layers">
+    <view
+      class="layer-card {{index < revealedCount ? 'layer-visible' : 'layer-hidden'}}"
+      wx:for="{{result.dimensions}}"
+      wx:key="name"
+    >
+      <!-- 已揭开 -->
+      <view wx:if="{{index < revealedCount}}" class="layer-content">
+        <view class="layer-number">第{{index + 1}}个发现</view>
+        <view class="layer-name">{{item.name}}</view>
+        <!-- 不用百分比，用描述性标签 -->
+        <view class="layer-match">
+          <view class="match-badge {{item.label === '很像你' ? 'match-high' : item.label === '有一点像' ? 'match-mid' : 'match-low'}}">
+            {{item.label}}
+          </view>
+        </view>
+        <view class="layer-analysis">{{item.analysis}}</view>
+      </view>
+
+      <!-- 未揭开 -->
+      <view wx:else class="layer-locked" bindtap="revealNext">
+        <view class="locked-icon">🔒</view>
+        <view class="locked-text">{{item.name}}</view>
+        <view class="locked-hint">点击看看</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 全揭开后 -->
+  <view wx:if="{{revealedCount >= 3}}" class="post-reveal">
+
+    <!-- 自我验证 -->
+    <view class="honesty-check">
+      <view class="honesty-title">说中了几条？</view>
+      <view class="honesty-body">
+        这不是科学鉴定，是你选的 15 道题答案指向的方向。上面这些描述——有的可能让你"卧槽这就是我"，有的可能不太对。正常的。每个人都不一样，15 道题能画出的也只是一张比较清晰的草图。
+      </view>
+      <view class="honesty-ask">如果大部分说中了，分享给一个了解你的人——看 ta 怎么说。</view>
+    </view>
+
+    <!-- 分享卡片 -->
+    <view class="share-section">
+      <view class="share-card-preview">
+        <view class="scp-app">原来我是这种人啊</view>
+        <view class="scp-quote-highlight">{{shareQuote}}</view>
+        <view class="scp-type-tag">{{result.typeName}}</view>
+        <view class="scp-cta">你也测测看 →</view>
+      </view>
+      <button class="btn-share" open-type="share">📤 发给朋友</button>
+    </view>
+
+    <!-- 预览 -->
+    <view class="cliffhanger">
+      <view class="cliffhanger-title">15 道题能画个清楚轮廓</view>
+      <view class="cliffhanger-body">
+        30 道题的完整版能挖到更深的地方。还在打磨。
+      </view>
+    </view>
+
+    <view class="retest">
+      <button class="btn-retest" bindtap="retest">再做一次</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,23 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 不再介绍功能。制造一个认知缺口。 -->
+  <view class="hero">
+    <view class="hero-question">你确定你了解自己吗</view>
+    <view class="hero-hint">有些关于你的模式，别人看在眼里，你自己从来没意识到。</view>
+  </view>
+
+  <!-- 不是特征列表。是镜子。 -->
+  <view class="mirror-section">
+    <view class="mirror-line"></view>
+    <view class="mirror-text">15 道题 · 像一面镜子一样看自己</view>
+    <view class="mirror-line"></view>
+  </view>
+
+  <view class="cta-section">
+    <button class="btn-start" bindtap="startTest">看看我不知道的自己</button>
+  </view>
+
+  <view class="footer-note">
+    仅供娱乐参考，不构成专业心理评估
+  </view>
+</view>

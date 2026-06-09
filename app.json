@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/test/test",
+    "pages/result/result",
+    "pages/report/report"
+  ],
+  "window": {
+    "navigationBarTitleText": "原来我是这种人啊",
+    "navigationBarBackgroundColor": "#1E1E24",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0D0D1A"
+  },
+  "sitemapLocation": "sitemap.json"
+}

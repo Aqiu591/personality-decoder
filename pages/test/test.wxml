@@ -1,0 +1,36 @@
+<!--pages/test/test.wxml-->
+<view class="container">
+  <!-- 进度条 -->
+  <view class="progress-bar">
+    <view class="progress-fill" style="width: {{progress}}%"></view>
+  </view>
+  <view class="progress-text">{{currentIndex + 1}} / {{totalQuestions}}</view>
+
+  <!-- 题目 -->
+  <view class="question-card" wx:if="{{!finished}}">
+    <view class="question-number">第 {{currentIndex + 1}} 题</view>
+    <view class="question-text">{{currentQuestion.text}}</view>
+
+    <view class="options">
+      <view
+        class="option {{selectedIndex === index ? 'option-selected' : ''}}"
+        wx:for="{{currentQuestion.options}}"
+        wx:key="label"
+        wx:for-index="index"
+        data-index="{{index}}"
+        bindtap="selectOption"
+      >
+        <view class="option-label">{{item.label}}</view>
+        <view class="option-text">{{item.text}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 完成提示 -->
+  <view class="complete-card" wx:if="{{finished}}">
+    <view class="complete-icon">✨</view>
+    <view class="complete-text">答题完成</view>
+    <view class="complete-desc">分析完成，看看发现了什么...</view>
+    <button class="btn-view-result" bindtap="viewResult">查看发现</button>
+  </view>
+</view>

@@ -1,0 +1,9 @@
+<!--pages/report/report.wxml - 完整版付费报告占位页-->
+<view class="container">
+  <view class="placeholder">
+    <view class="icon">🚧</view>
+    <view class="title">完整报告即将开放</view>
+    <view class="desc">完整版将包含七个维度的深度分析、职业方向建议、人际关系指南、名人对比和个人发展建议。</view>
+    <button class="btn-back" bindtap="goBack">返回免费版</button>
+  </view>
+</view>
