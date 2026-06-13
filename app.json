@@ -3,13 +3,14 @@
     "pages/index/index",
     "pages/test/test",
     "pages/result/result",
-    "pages/report/report"
+    "pages/report/report",
+    "pages/privacy/privacy"
   ],
   "window": {
     "navigationBarTitleText": "原来我是这种人啊",
-    "navigationBarBackgroundColor": "#1E1E24",
-    "navigationBarTextStyle": "white",
-    "backgroundColor": "#0D0D1A"
+    "navigationBarBackgroundColor": "#F0F9FF",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F0F9FF"
   },
   "sitemapLocation": "sitemap.json"
 }

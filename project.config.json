@@ -1,7 +1,36 @@
 {
-  "description": "性格解码器 - 微信小程序",
+  "description": "原来我是这种人啊 - 微信小程序",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      {
+        "type": "folder",
+        "value": "docs"
+      },
+      {
+        "type": "folder",
+        "value": "prompts"
+      },
+      {
+        "type": "folder",
+        "value": "cloudfunctions"
+      },
+      {
+        "type": "folder",
+        "value": "images"
+      },
+      {
+        "type": "file",
+        "value": "CLAUDE.md"
+      },
+      {
+        "type": "file",
+        "value": "sourcemap.zip"
+      },
+      {
+        "type": "file",
+        "value": "utils/share-card.js"
+      }
+    ],
     "include": []
   },
   "setting": {
@@ -18,7 +47,7 @@
     "scopeDataCheck": false,
     "checkInvalidKey": true,
     "checkSiteMap": true,
-    "uploadWithSourceMap": true,
+    "uploadWithSourceMap": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],

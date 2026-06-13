@@ -1,9 +1,140 @@
-<!--pages/report/report.wxml - 完整版付费报告占位页-->
-<view class="container">
-  <view class="placeholder">
-    <view class="icon">🚧</view>
-    <view class="title">完整报告即将开放</view>
-    <view class="desc">完整版将包含七个维度的深度分析、职业方向建议、人际关系指南、名人对比和个人发展建议。</view>
-    <button class="btn-back" bindtap="goBack">返回免费版</button>
+<!-- 完整报告页 -->
+<view class="container" wx:if="{{result}}">
+  <!-- 装饰 -->
+  <view class="deco deco-1">✨</view>
+  <view class="deco deco-2">💫</view>
+
+  <!-- ════ 头部 ════ -->
+  <view class="report-header">
+    <view class="rh-label">🔮 你的矛盾说明书</view>
+    <view class="rh-subtitle">基于你 15 道题生成的专属解读</view>
+    <view class="rh-code">{{result.code}}</view>
+    <view class="rh-type">{{result.typeName}}</view>
+    <view class="rh-oneliner">"{{result.oneLiner}}"</view>
   </view>
+
+  <!-- ════ 三个维度（全部展开） ════ -->
+  <view class="dimensions-section">
+    <view class="section-label">核心维度分析</view>
+    <view class="dim-card" wx:for="{{result.dimensions}}" wx:key="name">
+      <view class="dim-header">
+        <view class="dim-icon">{{index === 0 ? '👀' : index === 1 ? '🧠' : '💡'}}</view>
+        <view class="dim-name">{{item.name}}</view>
+        <view class="dim-match {{item.label === '准' ? 'match-high' : 'match-mid'}}">{{item.label}}</view>
+      </view>
+      <view class="dim-body">{{item.analysis}}</view>
+    </view>
+  </view>
+
+  <!-- ════ 个性化洞察 ════ -->
+  <view class="insight-section" wx:if="{{highlight}}">
+    <view class="section-label">关于你</view>
+
+    <view class="highlight-card" wx:if="{{highlight}}">
+      <view class="hl-body">{{highlight}}</view>
+    </view>
+
+    <view class="pattern-card" wx:for="{{patterns}}" wx:key="id">
+      <view class="pt-title">{{item.title}}</view>
+      <view class="pt-body">{{item.body}}</view>
+    </view>
+
+    <view class="contradiction-card" wx:for="{{contradictions}}" wx:key="id">
+      <view class="ct-title">⚡ {{item.title}}</view>
+      <view class="ct-body">{{item.body}}</view>
+    </view>
+
+    <view class="custom-card" wx:for="{{customAnswers}}" wx:key="questionIndex">
+      <view class="cu-question">「{{item.questionText}}」</view>
+      <view class="cu-answer">"{{item.userText}}"</view>
+    </view>
+  </view>
+
+  <!-- ════ 角色映射 ════ -->
+  <view class="characters-section" wx:if="{{result.characters && result.characters.length}}">
+    <view class="section-label">🎬 如果在剧里，你大概是</view>
+    <view class="char-row">
+      <view class="char-card" wx:for="{{result.characters}}" wx:key="name">
+        <view class="char-avatar">{{index === 0 ? '🦸' : '🦹'}}</view>
+        <view class="char-name">{{item.name}}</view>
+        <view class="char-source">{{item.source}}</view>
+        <view class="char-reason">{{item.reason}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ════ 深层解读 · 5 个模块 ════ -->
+  <view class="deep-read-section">
+
+    <!-- 模块 1：你最容易被误解的地方 -->
+    <view class="deep-card" wx:if="{{deepRead.misunderstood}}" data-module="misunderstood">
+      <view class="deep-icon">🎭</view>
+      <view class="deep-title">你最容易被误解的地方</view>
+      <view class="deep-evidence" wx:if="{{deepRead.misunderstood.evidence}}">
+        <text class="ev-label">📋 证据</text>
+        <text class="ev-body">{{deepRead.misunderstood.evidence}}</text>
+      </view>
+      <view class="deep-body">{{deepRead.misunderstood.body}}</view>
+    </view>
+
+    <!-- 模块 2：你真正累的来源 -->
+    <view class="deep-card" wx:if="{{deepRead.exhaustion}}" data-module="exhaustion">
+      <view class="deep-icon">🪫</view>
+      <view class="deep-title">你真正累的来源</view>
+      <view class="deep-evidence" wx:if="{{deepRead.exhaustion.evidence}}">
+        <text class="ev-label">📋 证据</text>
+        <text class="ev-body">{{deepRead.exhaustion.evidence}}</text>
+      </view>
+      <view class="deep-body">{{deepRead.exhaustion.body}}</view>
+    </view>
+
+    <!-- 模块 3：你关系里的隐藏模式 -->
+    <view class="deep-card" wx:if="{{deepRead.hiddenPattern}}" data-module="hiddenPattern">
+      <view class="deep-icon">🪞</view>
+      <view class="deep-title">你关系里的隐藏模式</view>
+      <view class="deep-evidence" wx:if="{{deepRead.hiddenPattern.evidence}}">
+        <text class="ev-label">📋 证据</text>
+        <text class="ev-body">{{deepRead.hiddenPattern.evidence}}</text>
+      </view>
+      <view class="deep-body">{{deepRead.hiddenPattern.body}}</view>
+    </view>
+
+    <!-- 模块 4：你适合的工作/创作节奏 -->
+    <view class="deep-card" wx:if="{{deepRead.workRhythm}}" data-module="workRhythm">
+      <view class="deep-icon">⚡</view>
+      <view class="deep-title">你适合的工作/创作节奏</view>
+      <view class="deep-evidence" wx:if="{{deepRead.workRhythm.evidence}}">
+        <text class="ev-label">📋 证据</text>
+        <text class="ev-body">{{deepRead.workRhythm.evidence}}</text>
+      </view>
+      <view class="deep-body">{{deepRead.workRhythm.body}}</view>
+    </view>
+
+    <!-- 模块 5：给你的三句反向提醒 -->
+    <view class="deep-card" wx:if="{{deepRead.reverseTips}}" data-module="reverseTips">
+      <view class="deep-icon">🔄</view>
+      <view class="deep-title">给你的三句反向提醒</view>
+      <view class="deep-evidence" wx:if="{{deepRead.reverseTipEvidence}}">
+        <text class="ev-label">📋 证据</text>
+        <text class="ev-body">{{deepRead.reverseTipEvidence}}</text>
+      </view>
+      <view class="reverse-tips">
+        <view class="tip-item" wx:for="{{deepRead.reverseTips}}" wx:key="index">
+          <view class="tip-num">{{index + 1}}</view>
+          <view class="tip-body">{{item}}</view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- ════ 免责 ════ -->
+  <view class="disclaimer">
+    <view class="disc-text">15 道情景题指向的方向。不是科学鉴定。仅供娱乐参考。</view>
+  </view>
+</view>
+
+<!-- 固定底栏分享 -->
+<view class="share-bar" wx:if="{{result}}">
+  <button class="btn-share-bar" open-type="share">📤 发给朋友，让 TA 也看看自己</button>
 </view>

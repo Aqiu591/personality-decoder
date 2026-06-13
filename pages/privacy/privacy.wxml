@@ -1,0 +1,46 @@
+<!--pages/privacy/privacy.wxml-->
+<view class="container">
+  <view class="content">
+    <view class="title">隐私政策与用户协议</view>
+    <view class="update-date">更新日期：2026年6月</view>
+
+    <view class="section">
+      <view class="section-title">一、信息收集</view>
+      <view class="section-body">本小程序会使用您在答题过程中主动提供的选项和文字内容，用于生成本次性格分析结果。我们不收集您的姓名、手机号、地理位置、微信好友列表等个人身份信息。</view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">二、信息使用</view>
+      <view class="section-body">您的答题内容仅用于生成结果页和深层解读。基础使用记录仅保存在本地设备中，用于判断功能是否正常，不会与您的微信账号直接关联。</view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">三、信息存储</view>
+      <view class="section-body">答题数据和结果保存在您的本地设备中，用于展示本次分析结果。我们不会将您的数据出售、转让或分享给任何第三方。</view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">四、分享功能</view>
+      <view class="section-body">当您主动使用分享功能时，分享内容不包含具体答题数据。分享行为由您自主控制，我们不会自动转发您的任何信息。</view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">五、免责声明</view>
+      <view class="section-body">本小程序提供的性格分析仅供娱乐和自我认知参考，不构成任何形式的测评结论或建议。如您遇到长期现实困扰，请寻求可信赖的线下支持。</view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">六、用户权利</view>
+      <view class="section-body">您可以随时停止使用本小程序，也可以通过微信清理小程序缓存来删除本地保存的数据。</view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">七、政策更新</view>
+      <view class="section-body">我们可能适时更新本隐私政策。更新后的政策将在小程序内发布，继续使用即视为同意更新后的政策。</view>
+    </view>
+
+    <view class="footer">
+      如有疑问，可通过微信小程序页面右上角菜单中的反馈入口提交意见。
+    </view>
+  </view>
+</view>

@@ -1,0 +1,114 @@
+# 原来我是这种人啊
+
+微信小程序 · 性格画像分析工具 · 体验版已上线
+
+---
+
+## 项目定位
+
+用户做 15 道情景题，得到性格分析报告。全部内容免费看，深层解读页末尾有轻量打赏入口（先不做真实支付，记录打赏意愿）。产品核心不是"测试"，是 **"被看见感"**。
+
+---
+
+## 技术架构
+
+```
+用户答题(15题多选) → 维度打分(10维归一化) → 三轴分类
+→ 8型 × 3强度 = 24套模板 → 个性化注入 → 结果页/报告页
+```
+
+- **纯前端算法**，不依赖云函数即可运行
+- 三轴模型：energy (outward↔inward) × judgment (logic↔feel) × rhythm (order↔flow)
+- 中性阈值 ±20，8 种人格类型
+- 个性化引擎 v2：跨题模式(8条) + 矛盾聚光灯(4条) + 自定义回显 + 一句话洞察
+
+---
+
+## 文件职责
+
+| 文件 | 职责 | 修改注意 |
+|------|------|---------|
+| `utils/questions.js` | 15 道题，IPIP 行为锚定，10 维度 × 4 选项 | 改选项需同步改 score |
+| `utils/results.js` | 8 型人格算法 + 3 级强度 + 结果模板 | 改阈值改 NEUTRAL 常量；改文案在 RESULT_TEMPLATES |
+| `utils/personalize.js` | 个性化引擎 v2 | 加规则改 PATTERN_RULES / CONTRADICTION_RULES 数组 |
+| `pages/test/test.js` | 答题页，多选 toggle + 自定义 + 上一题 | 答案格式：`[[0,2], [1], '自定义文本', ...]` |
+| `pages/result/result.js` | 结果页，3 层揭开 | `revealedCount` 控制展示 |
+| `pages/report/report.js` | 深层解读页（免费） | 末尾有打赏入口，暂不做真实支付 |
+| `app.js` | 全局状态 | `globalData.userAnswers` / `globalData.reportResult` |
+| `cloudfunctions/generateReport/` | 混元大模型报告 | 未启用 |
+| `prompts/report-system-prompt.md` | AI 报告 Prompt 模板 | 未启用 |
+
+---
+
+## 关键约束
+
+1. **审核避险**：全文不用「AI」「人工智能」「大模型」，用「系统匹配分析」
+2. **类目**：工具 - 信息查询
+3. **⚠️ 女娲优先**：做产品决策、文案改动、合规判断时，**先调用女娲 Skill 跑三模型交叉审核**（张小龙/Ariely/KK），拿到三方共识/分歧后再动手改代码。不要跳过这步直接改。
+4. **iOS 端**：无支付入口，不影响
+5. **答案格式 v3**：`[[0,2], [1], '自定义', [3], ...]` — 数组表示多选，字符串表示自定义
+6. **向后兼容**：`Array.isArray()` 检测兼容旧单选格式 `[0, 1, 2, ...]`
+7. **个性化检测**：`has(answers, qIdx, optIdx)` / `hasAny(answers, qIdx, [indices])` 兼容新旧格式
+8. **无 npm 依赖**：全部 CommonJS
+9. **文案铁律**：禁止「不是…而是…」「这就是你」「但这不是重点」句式
+10. **审核版铁律**：不含任何支付/打赏/收款码/个人二维码/联系方式。赚钱路径分阶段——先免费上线过审 → 流量主广告（零门槛）→ 注册个体户接官方虚拟支付
+11. **数据最小化**：本地只存 `lastResult`（页面恢复用），不存原始答案 `lastAnswers`
+
+---
+
+## 测试
+
+```bash
+node docs/simulate-user.js    # 命令行模拟答题
+```
+
+---
+
+## 名称统一
+
+- 小程序名称：**原来我是这种人啊**
+- 导航栏标题：**原来我是这种人啊**
+- 首页徽章：**原来我是这种人啊**
+- 内部代号：personality-decoder（目录名/项目名不变）
+
+---
+
+## 变更日志
+
+### 2026-06-13
+- 🆕 **审核版准备**：女娲三模型交叉审核（张小龙/Ariely/KK）全程参与决策。上午：赞赏码→联系创作者（后废弃）。下午：三模型审查分享文案——Canvas CTA「测测你跟我的匹配度」→「看看你是哪一种」，分享标题→「XX——我测出来是这个。你的是什么？」，卡片底部→「看见你自己没说出口的那一面」，联系创作者区加入「有疑问、或者给点反馈」入口，底栏分享→「发给朋友，让 TA 也看看自己」。傍晚：用户自行完成审核版最终清理——移除所有个人微信二维码/扫码/联系创作者区块，`images` 文件夹加入上传忽略，移除 `lastAnswers` 本地持久化只保留 `lastResult`，重测时清理旧缓存，首页免责「专业评估或建议」→「测评结论或现实建议」。三模型审核通过——"合理性驱动，不是恐惧驱动"。赚钱路径明确但分阶段：免费上线→流量主→官方虚拟支付。
++ 📝 `docs/research/` 下新增 5 份研究文档：变现路径、定价心理学、案例研究、张小龙/Ariely/KK 三模型蒸馏、跨模型交叉综合
+- 🔧 商业化路径演变（全部废弃）：假打赏按钮→赞赏码→联系创作者→审核版全部移除。最终结论：审核版不碰任何支付相关，过审后走流量主或官方虚拟支付
+- 📝 女娲主题蒸馏：张小龙(5模型)/Ariely(5模型)/KK(5模型) 并行调研 + 跨模型交叉综合
+- ⚙️ **项目约定**：做产品决策、文案改动、合规判断时，优先调用女娲 Skill 进行三模型（张小龙/Ariely/KK）交叉审核，再动手改代码
+- 🚀 **ICP 备案已提交**：审核版就绪，等待备案通过后正式上线。备案期间不修改代码
+- 🔧 **开发环境升级**：Node.js v20.11.1 → v22.12.0，项目新增 `.mcp.json` 配置 `@yfme/weapp-dev-mcp`（微信开发者工具自动化 MCP），`settings.local.json` 加 MCP 权限。需手动开启微信开发者工具"服务端口"才能生效
+
+### 2026-06-12
+- 🆕 **策略调整：免费优先 + 轻量打赏**：撤掉硬付费入口，深层解读页全部免费开放。`pages/report/report.wxml` 在 5 个深层解读模块末尾、免责声明前新增「说中了？支持一下 ☕」打赏区——3 档金额按钮（1/3/6 元），点击弹出感谢 toast，仅记录打赏意愿不做真实支付。`pages/report/report.js` 新增 `showTipJar`/`tipOptions` 数据和 `onTipTap` 方法。`pages/report/report.wxss` 新增打赏区样式（三栏金额卡片、hover 态）。`pages/result/result.wxml` 矛盾预览区：「解锁进度条 + 解锁百分比」改为「分隔线 + 专属深层解读已就绪」，按钮文案「查看深层解读 →」改为「免费查看深层解读 →」，移除付费暗示。`pages/result/result.wxss` 对应替换 `.cp-progress-bar`/`.cp-progress-fill` 为 `.cp-divider`。`cloudfunctions/createPayment/` 目录保留不动（代码留以后用）。项目定位从「付费 9.9 解锁」改为「全部免费 + 末尾打赏」。
+- 🆕 **深层解读数据埋点**：`pages/report/report.wxml` 为 5 个 `.deep-card` 添加 `data-module` 属性。`pages/report/report.js` 新增 3 个指标的自动采集：① 读完率 `deep_read_scroll_end`（IntersectionObserver 监听 .disclaimer 首次可见）② 5 模块各自曝光 `deep_read_module_view`（IntersectionObserver 监听 .deep-card，按模块防重复）③ 停留时长 `deep_read_duration`（onLoad 记录 enterTime，onUnload 上报差值）。所有埋点 try/catch 包裹，失败不影响页面功能。onUnload 中释放 Observer 资源。结果页已有的 `report_open` 和 `share_click` 埋点无变化。
+- 🆕 **结果页重构 v2**：从学术报告结构改为情绪体验结构。新增 `utils/killer-lines.js`（8 型命门句 + 3 关键词 + 短维度 + 矛盾钩子生成器）。`utils/results.js` 合并命门句数据到结果对象。`pages/result/result.wxml` 改为 5 屏结构：命门句（逐行淡入）→ 3 关键词 → 短证据卡片 → 矛盾聚光灯（隐藏预览，进度条 + 解锁百分比）→ 角色映射 + 分享。移除逐层揭开锁机制。`pages/result/result.js` 移除 `revealedCount` 逻辑，接入新数据字段。`pages/result/result.wxss` 全部重写：命门句逐行动画、关键词三栏布局、短维度左蓝边框卡片、矛盾预览渐变边框 + 进度条。全部 6 项 simulator 测试通过。
+- 🆕 **报告页重构：完整报告 → 深层解读**：`pages/report/report.json` 标题改为「深层解读」。`pages/report/report.wxml` 头部改为「🔮 你的矛盾说明书」+ 副标题，替换职业/关系/成长 3 个泛泛模块为 5 个绑定答题证据的专属模块：最容易被误解的地方、真正累的来源、关系里的隐藏模式、适合的工作/创作节奏、三句反向提醒。`pages/report/report.js` 用 `buildDeepRead()` 动态生成 5 模块内容——优先使用用户实际触发的 patterns/contradictions，fallback 使用维度分析。`pages/report/report.wxss` 新增 `.deep-card`/`.deep-evidence`/`.reverse-tips` 样式，证据引用带左蓝边框，反向提醒带渐变编号圆圈。
+
+### 2026-06-11
+- 统一名称：「原来我是这种人啊」（替换所有"性格解码器""人格解码器"）
+- 创建 CLAUDE.md 作为项目专用 skill
+- 更新 docs/README.md 项目结构文档 + 记忆快照
+- 🆕 清理 AI 味文案（两轮）：第一轮移除 personalize.js + results.js 中「不是…是…」句式 21 处；第二轮 Humanizer 全面改写 results.js 全部 8 型模板（one-liner + 3 个维度分析），破除破折号"断言—解释"固定节奏、缩短句长、去说教腔、加网感。全部测试通过。
+- 🆕 Canvas 分享卡片 + 匹配度按钮：新增 utils/share-card.js（Canvas 绘制引擎），结果页集成分享卡片生成、保存相册、分享标题「测测匹配度」。双按钮（保存卡片 + 发给朋友），预生成高清 2x 图片。
+- 🆕 校准结果分布：新增 docs/diagnose-distribution.js 分布诊断工具。根因：所有维度得分偏向正数（avg 39-55），因为选项只给正分。修复：加入均值对中（CENTER 常量），使随机基线 ≈ 0。效果：极差从 28:1 降至 5:1，三轴均值归零。全部测试通过。
+- 🆕 最小数据入库：新增 utils/analytics.js 数据记录层（本地存储 + 云端同步），app.js 云开发初始化，答题/结果/分享/重测/支付全链路埋点。
+- 🆕 完整报告页：report 页面从占位→完整展示（全部维度 + 个性化 + 角色 + 职业/关系/成长扩展分析 + 分享 + 赞赏入口）。
+- 🆕 微信支付：新增 cloudfunctions/createPayment/ 云函数，报告页 Android 端展示赞赏按钮、iOS 端隐藏。结果页新增「查看完整报告」入口。
+
+### 2026-06-10
+- 个性化引擎 v2 上线（跨题模式 + 矛盾聚光灯 + 自定义回显 + 一句话洞察）
+- 全部结果文案重写，清除 AI 句式
+- 天蓝+白云+可爱漂浮风格上线
+- 15 题题库 v3（IPIP 行为锚定法）
+- 多选 toggle v3 + 自定义输入 + 上一题
+
+### 2026-06-09
+- 项目初始化，Mini 版体验版上线
+- 5 题 → 扩展到 15 题
+- 静态结果模板 → 8 型人格算法

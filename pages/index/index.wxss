@@ -1,7 +1,10 @@
-/* 首页 —— 抖音/B站：满屏大字 + 霓虹撞色 */
+/* ============================================
+   首页 — 天蓝 · 白云 · 可爱漂浮
+   ============================================ */
+
 .container {
   min-height: 100vh;
-  background: #0D0D1A;
+  background: #F0F9FF;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,64 +13,189 @@
   overflow: hidden;
 }
 
-/* 背景光斑 */
-.container::before {
-  content: '';
+/* ---- 装饰云朵 ---- */
+.deco-cloud {
   position: absolute;
-  top: -200rpx; right: -160rpx;
-  width: 500rpx; height: 500rpx;
-  background: radial-gradient(circle, rgba(255,42,125,0.12) 0%, transparent 70%);
-  border-radius: 50%;
+  font-size: 64rpx;
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 0;
+  animation: float-gentle 8s ease-in-out infinite;
 }
 
-.container::after {
-  content: '';
+.cloud-1 { top: 120rpx; right: 40rpx; animation-delay: 0s; font-size: 72rpx; }
+.cloud-2 { top: 60%; left: 30rpx; animation-delay: 2s; font-size: 52rpx; opacity: 0.18; }
+
+/* ---- 装饰星星 ---- */
+.deco-star {
   position: absolute;
-  bottom: -120rpx; left: -120rpx;
-  width: 400rpx; height: 400rpx;
-  background: radial-gradient(circle, rgba(0,212,255,0.1) 0%, transparent 70%);
-  border-radius: 50%;
+  font-size: 40rpx;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+  animation: float-gentle 6s ease-in-out infinite;
 }
 
-.hero { width: 100%; margin-bottom: 64rpx; position: relative; z-index: 1; }
+.star-1 { top: 200rpx; left: 50rpx; animation-delay: 1s; }
+.star-2 { bottom: 30%; right: 60rpx; animation-delay: 3s; font-size: 48rpx; }
+
+/* ---- 装饰泡泡 ---- */
+.deco-bubble {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bubble-1 {
+  width: 200rpx; height: 200rpx;
+  top: -60rpx; right: -60rpx;
+  background: radial-gradient(circle,
+    rgba(14, 165, 233, 0.08) 0%,
+    rgba(2, 132, 199, 0.03) 40%,
+    transparent 70%);
+  animation: float-wide 10s ease-in-out infinite;
+}
+
+.bubble-2 {
+  width: 160rpx; height: 160rpx;
+  bottom: 15%; left: -40rpx;
+  background: radial-gradient(circle,
+    rgba(245, 158, 11, 0.06) 0%,
+    transparent 70%);
+  animation: float-gentle 8s ease-in-out infinite 3s;
+}
+
+/* ---- 主视觉 ---- */
+.hero {
+  width: 100%;
+  margin-bottom: 72rpx;
+  position: relative;
+  z-index: 1;
+  animation: fade-in-up 0.7s var(--ease-out) both;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+  padding: 10rpx 24rpx;
+  border-radius: var(--radius-full);
+  margin-bottom: 28rpx;
+  letter-spacing: 2rpx;
+}
 
 .hero-question {
-  font-size: 56rpx;
+  font-size: 64rpx;
   font-weight: 900;
-  color: #fff;
-  line-height: 1.25;
-  margin-bottom: 24rpx;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 32rpx;
+  letter-spacing: 1rpx;
 }
 
-.hero-question .highlight {
-  color: #FF2A7D;
+.hero-highlight {
+  background: linear-gradient(135deg, #0284C7 0%, #0EA5E9 60%, #38BDF8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #0284C7;
 }
 
 .hero-hint {
   font-size: 28rpx;
-  color: rgba(255,255,255,0.35);
-  line-height: 1.8;
+  color: var(--text-muted);
+  line-height: 2;
 }
 
-.mirror-section { display: flex; align-items: center; width: 100%; margin-bottom: 72rpx; position: relative; z-index: 1; }
-.mirror-line { flex: 1; height: 1rpx; background: rgba(255,255,255,0.06); }
-.mirror-text { font-size: 24rpx; color: rgba(255,255,255,0.2); padding: 0 24rpx; letter-spacing: 1rpx; }
+/* ---- 分隔 ---- */
+.mirror-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20rpx;
+  width: 100%;
+  margin-bottom: 80rpx;
+  position: relative;
+  z-index: 1;
+  animation: fade-in-up 0.7s var(--ease-out) 0.15s both;
+}
 
-.cta-section { width: 100%; position: relative; z-index: 1; }
+.mirror-dot {
+  font-size: 12rpx;
+  color: var(--text-subtle);
+}
+
+.mirror-text {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  letter-spacing: 2rpx;
+}
+
+/* ---- CTA ---- */
+.cta-section {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  animation: fade-in-up 0.7s var(--ease-out) 0.3s both;
+}
 
 .btn-start {
-  background: linear-gradient(135deg, #FF2A7D 0%, #7B2FFF 100%);
-  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  background: linear-gradient(135deg, #0284C7 0%, #0EA5E9 50%, #38BDF8 100%);
+  color: #FFFFFF;
   border: none;
-  border-radius: 24rpx;
-  padding: 34rpx 0;
-  font-size: 34rpx;
+  border-radius: var(--radius-lg);
+  padding: 36rpx 0;
+  font-size: 36rpx;
   font-weight: 800;
   width: 100%;
   letter-spacing: 2rpx;
-  box-shadow: 0 8rpx 40rpx rgba(255,42,125,0.3);
+  box-shadow: var(--shadow-btn);
+  animation: btn-breathe 3s ease-in-out infinite;
+  transition: transform var(--duration-fast) var(--ease-out);
 }
 
-.btn-start:active { opacity: 0.85; transform: scale(0.98); }
+.btn-start:active {
+  transform: scale(0.97);
+  opacity: 0.92;
+}
 
-.footer-note { position: fixed; bottom: 52rpx; left: 44rpx; font-size: 22rpx; color: rgba(255,255,255,0.1); z-index: 1; }
+.btn-arrow {
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.btn-start:active .btn-arrow {
+  transform: translateX(6rpx);
+}
+
+.cta-subtle {
+  text-align: center;
+  margin-top: 20rpx;
+  font-size: 22rpx;
+  color: var(--text-subtle);
+}
+
+/* ---- 底部 ---- */
+.footer-note {
+  position: fixed;
+  bottom: 60rpx;
+  left: 44rpx;
+  right: 44rpx;
+  font-size: 22rpx;
+  color: var(--text-subtle);
+  z-index: 1;
+  text-align: center;
+}
+
+.footer-divider { margin: 0 8rpx; }
+
+.footer-link {
+  color: var(--text-muted);
+  text-decoration: underline;
+}

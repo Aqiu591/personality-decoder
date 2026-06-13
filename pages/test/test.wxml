@@ -1,36 +1,81 @@
-<!--pages/test/test.wxml-->
+<!-- 答题页 — v3 多选 · 白底 · 天蓝 · 圆润 -->
 <view class="container">
   <!-- 进度条 -->
-  <view class="progress-bar">
-    <view class="progress-fill" style="width: {{progress}}%"></view>
+  <view class="progress-section">
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{progress}}%"></view>
+    </view>
+    <view class="progress-text">
+      <text class="progress-emoji">💭</text>
+      <text>{{currentIndex + 1}}</text>
+      <text class="progress-divider">/</text>
+      <text>{{totalQuestions}}</text>
+    </view>
   </view>
-  <view class="progress-text">{{currentIndex + 1}} / {{totalQuestions}}</view>
 
   <!-- 题目 -->
   <view class="question-card" wx:if="{{!finished}}">
-    <view class="question-number">第 {{currentIndex + 1}} 题</view>
+    <view class="question-number">🌊 第 {{currentIndex + 1}} 题</view>
     <view class="question-text">{{currentQuestion.text}}</view>
+    <view class="question-hint">可以多选，选完点下一题</view>
 
     <view class="options">
       <view
-        class="option {{selectedIndex === index ? 'option-selected' : ''}}"
-        wx:for="{{currentQuestion.options}}"
+        class="option {{item.selected ? 'option-selected' : ''}} {{customMode ? 'option-disabled' : ''}}"
+        wx:for="{{currentOptions}}"
         wx:key="label"
-        wx:for-index="index"
-        data-index="{{index}}"
-        bindtap="selectOption"
+        data-index="{{item.index}}"
+        bindtap="toggleOption"
+        style="animation-delay: {{index * 0.06}}s"
       >
         <view class="option-label">{{item.label}}</view>
         <view class="option-text">{{item.text}}</view>
+        <view class="option-check" wx:if="{{item.selected}}">✓</view>
+      </view>
+    </view>
+
+    <!-- 都不像？自己写 -->
+    <view class="custom-area" wx:if="{{!customMode}}">
+      <view class="custom-trigger" bindtap="enableCustom">
+        <text class="custom-trigger-icon">✏️</text>
+        <text class="custom-trigger-text">都不像？自己写</text>
+      </view>
+    </view>
+
+    <!-- 自定义输入 -->
+    <view class="custom-area custom-active" wx:if="{{customMode}}">
+      <textarea
+        class="custom-input"
+        value="{{customText}}"
+        placeholder="写你的答案..."
+        placeholder-style="color: #CBD5E1"
+        auto-height
+        maxlength="200"
+        bindinput="onCustomInput"
+        focus="{{customMode}}"
+      />
+      <view class="custom-actions">
+        <view class="custom-btn custom-cancel" bindtap="cancelCustom">算了</view>
+        <view class="custom-btn custom-confirm" bindtap="submitCustom">✓ 确认</view>
+      </view>
+    </view>
+
+    <!-- 导航 -->
+    <view class="nav-buttons">
+      <view class="btn-prev" bindtap="prevQuestion" wx:if="{{currentIndex > 0}}">← 上一题</view>
+      <view wx:if="{{currentIndex === 0}}"></view>
+      <view class="btn-next" bindtap="nextQuestion">
+        <text wx:if="{{currentIndex < totalQuestions - 1}}">下一题 →</text>
+        <text wx:else>完成 🎉</text>
       </view>
     </view>
   </view>
 
-  <!-- 完成提示 -->
+  <!-- 完成 -->
   <view class="complete-card" wx:if="{{finished}}">
-    <view class="complete-icon">✨</view>
+    <view class="complete-icon">🎉</view>
     <view class="complete-text">答题完成</view>
-    <view class="complete-desc">分析完成，看看发现了什么...</view>
-    <button class="btn-view-result" bindtap="viewResult">查看发现</button>
+    <view class="complete-desc">正在分析你的回答...</view>
+    <button class="btn-view-result" bindtap="viewResult">查看发现 →</button>
   </view>
 </view>
