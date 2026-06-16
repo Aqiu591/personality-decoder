@@ -75,7 +75,7 @@
   <view class="complete-card" wx:if="{{finished}}">
     <view class="complete-icon">🎉</view>
     <view class="complete-text">答题完成</view>
-    <view class="complete-desc">正在分析你的回答...</view>
+    <view class="complete-desc">正在匹配你的回答...</view>
     <button class="btn-view-result" bindtap="viewResult">查看发现 →</button>
   </view>
 </view>

@@ -7,7 +7,7 @@
   <!-- ════ 头部 ════ -->
   <view class="report-header">
     <view class="rh-label">🔮 你的矛盾说明书</view>
-    <view class="rh-subtitle">基于你 15 道题生成的专属解读</view>
+    <view class="rh-subtitle">基于你 15 道题的解读</view>
     <view class="rh-code">{{result.code}}</view>
     <view class="rh-type">{{result.typeName}}</view>
     <view class="rh-oneliner">"{{result.oneLiner}}"</view>
@@ -15,7 +15,7 @@
 
   <!-- ════ 三个维度（全部展开） ════ -->
   <view class="dimensions-section">
-    <view class="section-label">核心维度分析</view>
+    <view class="section-label">几个侧面</view>
     <view class="dim-card" wx:for="{{result.dimensions}}" wx:key="name">
       <view class="dim-header">
         <view class="dim-icon">{{index === 0 ? '👀' : index === 1 ? '🧠' : '💡'}}</view>
@@ -88,10 +88,10 @@
       <view class="deep-body">{{deepRead.exhaustion.body}}</view>
     </view>
 
-    <!-- 模块 3：你关系里的隐藏模式 -->
+    <!-- 模块 3：你在关系里的选择模式 -->
     <view class="deep-card" wx:if="{{deepRead.hiddenPattern}}" data-module="hiddenPattern">
       <view class="deep-icon">🪞</view>
-      <view class="deep-title">你关系里的隐藏模式</view>
+      <view class="deep-title">你在关系里的选择模式</view>
       <view class="deep-evidence" wx:if="{{deepRead.hiddenPattern.evidence}}">
         <text class="ev-label">📋 证据</text>
         <text class="ev-body">{{deepRead.hiddenPattern.evidence}}</text>

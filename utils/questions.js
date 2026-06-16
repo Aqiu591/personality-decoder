@@ -37,7 +37,7 @@ const MINI_QUESTIONS = [
       { label: 'A', text: '放大看每张照片——都有谁、谁叫的局、在哪儿。然后退出，假装没刷到过。心里不舒服但不表现出来', score: { sensitive: 85, assertive: 5 } },
       { label: 'B', text: '直接私最熟的那个："你们在哪儿呢？"可能是忘了叫我。不问的话我自己在这演内心戏', score: { assertive: 75, sensitive: 45 } },
       { label: 'C', text: '心里刺了一下但就算了。人家临时组局不需要跟我报备。我做我的事', score: { sensitive: 40, assertive: 30 } },
-      { label: 'D', text: '记下了。下次他们约我我也不一定去。不是因为生气——是因为我知道了谁是主动约、谁是被动拉', score: { sensitive: 70, assertive: 40 } }
+      { label: 'D', text: '记下了。下次他们约我我也不一定去。生气是有的。但我更在意的是——我知道了谁是主动约、谁是被动拉', score: { sensitive: 70, assertive: 40 } }
     ]
   },
 
@@ -133,7 +133,7 @@ const MINI_QUESTIONS = [
       { label: 'A', text: '规则让人安全。别人踩过的坑画出来的线。知道边界在哪，你反而能在边界里面自由地发挥', score: { structured: 85, adventure: 10 } },
       { label: 'B', text: '规则我遵守，但"应该"我得自己判断过才能接受。不是所有理所当然的事对我都理所当然', score: { structured: 40, adventure: 40 } },
       { label: 'C', text: '本能想问"谁定的"和"凭什么"。规则是给需要规则的人准备的。我看到规则的第一反应是找它的漏洞', score: { adventure: 80, structured: 5 } },
-      { label: 'D', text: '每个规则都有它的上下文。一条交通规则在凌晨三点的空路口——你停不停？我停。不是因为怕罚，是因为规则内化了就成了习惯', score: { structured: 65, adventure: 30 } }
+      { label: 'D', text: '每个规则都有它的上下文。一条交通规则在凌晨三点的空路口——你停不停？我停。不是怕罚。规则内化了，就成了习惯', score: { structured: 65, adventure: 30 } }
     ]
   },
 
@@ -166,7 +166,7 @@ const MINI_QUESTIONS = [
     text: '跟好朋友吵架了。接下来最像你的剧本是？',
     dimensions: ['assertive', 'diplomatic'],
     options: [
-      { label: 'A', text: '我主动开口。冷战对我的消耗比吵架本身大得多。我可以吵——吵完我可以道歉——但我不能悬着。主动不是因为输了，是因为关系比面子重要', score: { assertive: 75, diplomatic: 35 } },
+      { label: 'A', text: '我主动开口。冷战对我的消耗比吵架本身大得多。我可以吵。吵完我可以道歉。但我不能悬着。主动不是输。关系比面子重要', score: { assertive: 75, diplomatic: 35 } },
       { label: 'B', text: '想开口但不知道怎么起头。万一对方还在生气呢。拖了几天，最后是对方先发了消息。收到消息的那一刻——松了一大口气', score: { diplomatic: 50, assertive: 15 } },
       { label: 'C', text: '发一条跟吵架完全无关的消息——一个好笑视频、一个随便的问题。水温测到了再决定要不要聊。直接谈太硬了，先看看对方还在不在生气', score: { diplomatic: 70, assertive: 30 } },
       { label: 'D', text: '先想清楚：这次吵架到底在吵什么。想明白了再去找对方——不想在情绪里对话。带着结论去，不是带着情绪去', score: { assertive: 50, diplomatic: 50 } }
@@ -192,7 +192,7 @@ const MINI_QUESTIONS = [
     options: [
       { label: 'A', text: '"靠谱。"不是最耀眼的——但你答应的事一定会做。跟你站在一起的人不用回头确认你在不在。你在。', score: { structured: 75, spontaneous: 15 } },
       { label: 'B', text: '"有意思。"想到你就想笑。跟你待在一起的时间过得特别快——你有一种让人卸下防备的能力。不是搞笑，是有趣', score: { spontaneous: 75, structured: 15 } },
-      { label: 'C', text: '"忘不掉。"来过就不会被忘记。有自己的节奏、自己的判断、自己的世界——没办法归类。不是故意与众不同的，是你本来就不一样', score: { spontaneous: 50, structured: 25 } },
+      { label: 'C', text: '"忘不掉。"来过就不会被忘记。有自己的节奏、自己的判断、自己的世界——没办法归类。你没想显得与众不同。你本来就不一样', score: { spontaneous: 50, structured: 25 } },
       { label: 'D', text: '"暖。"不是轰轰烈烈的那种。是冬天递过来的一杯热水、散场时确认每个人都安全到家了、有人难过的时候你什么都不问只是坐在旁边', score: { structured: 45, spontaneous: 35 } }
     ]
   }

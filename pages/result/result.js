@@ -5,6 +5,7 @@ Page({
   data: {
     result: null,
     shareQuote: '',
+    archive: null,
     killerLine: null,
     keywords: [],
     shortDimensions: [],
@@ -37,9 +38,13 @@ Page({
       const shareQuote = this.pickShareQuote(result)
       const p = result.personalization || {}
 
+      // 变化档案：读取历史 + 更新记录
+      const archive = this.updateArchive(result)
+
       this.setData({
         result,
         shareQuote,
+        archive,
         killerLine: result.killerLine || null,
         keywords: result.keywords || [],
         shortDimensions: result.shortDimensions || [],
@@ -73,6 +78,40 @@ Page({
     const text = result.dimensions[0].analysis
     const parts = text.split(/[。！；]/).filter(s => s.trim().length > 8 && s.includes('你'))
     return parts[0] ? parts[0].trim() : result.oneLiner
+  },
+
+  // 变化档案：读历史 → 更新 → 返回展示数据
+  updateArchive(result) {
+    try {
+      let history = { count: 0, records: [] }
+      try { const raw = wx.getStorageSync('testHistory'); if (raw) history = raw } catch (_) {}
+
+      const prev = history.records.length > 0 ? history.records[history.records.length - 1] : null
+      const today = new Date()
+      const dateStr = `${today.getMonth() + 1}/${today.getDate()}`
+
+      // 当天同类型不重复记录
+      const isDuplicate = prev && prev.date === dateStr && prev.code === result.code
+      if (!isDuplicate) {
+        history.count = history.records.length + 1
+        history.records.push({
+          date: dateStr,
+          code: result.code,
+          typeName: result.typeName
+        })
+        // 最多保留 20 条
+        if (history.records.length > 20) history.records = history.records.slice(-20)
+        wx.setStorageSync('testHistory', history)
+      }
+
+      return {
+        count: history.count,
+        lastDate: prev ? prev.date : null,
+        lastType: prev ? prev.typeName : null
+      }
+    } catch (_) {
+      return null
+    }
   },
 
   goReport() {

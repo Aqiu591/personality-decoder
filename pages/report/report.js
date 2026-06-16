@@ -216,7 +216,7 @@ function buildExhaustion(patterns, dims) {
   return null
 }
 
-// ════ 模块 3：你关系里的隐藏模式 ════
+// ════ 模块 3：你在关系里的选择模式 ════
 function buildHiddenPattern(patterns, contradictions) {
   // 优先使用关系相关的模式
   const relational = patterns.find(p =>
@@ -242,7 +242,7 @@ function buildHiddenPattern(patterns, contradictions) {
 
   return {
     evidence: '基于你 15 道题的整体答题路径',
-    body: '你在关系里的隐藏模式，不一定表现为某个明显冲突，而更像一种稳定的选择习惯：哪些人你愿意靠近，哪些场合你会自动后退，哪些话你会说出口，哪些话你会吞回去。真正值得看的不是“你合不合群”，而是你把精力交给谁、又从谁那里慢慢收回来。'
+    body: '你在关系里的选择模式，不一定表现为某个明显冲突，而更像一种稳定的选择习惯：哪些人你愿意靠近，哪些场合你会自动后退，哪些话你会说出口，哪些话你会吞回去。真正值得看的不是”你合不合群”，而是你把精力交给谁、又从谁那里慢慢收回来。'
   }
 }
 

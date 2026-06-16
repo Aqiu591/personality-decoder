@@ -92,10 +92,22 @@
     <view class="retest">
       <button class="btn-retest" bindtap="retest">🔄 重新测一次，看看准不准</button>
     </view>
+
+    <!-- 变化档案 -->
+    <view class="archive-section" wx:if="{{archive}}">
+      <view class="archive-label">📊 你的变化档案</view>
+      <view class="archive-body">
+        <text wx:if="{{archive.count > 1}}">这是你第 {{archive.count}} 次测试。上一次是 {{archive.lastDate}}，结果是「{{archive.lastType}}」。</text>
+        <text wx:else>这是你的第一次测试。再测一次，就能看到你的变化轨迹——不是因为上次不准，是因为你在变。</text>
+      </view>
+      <view class="archive-invite" wx:if="{{archive.count === 1}}">
+        <text>隔几天再来测一次，看看哪些维度在悄悄移动。</text>
+      </view>
+    </view>
   </view>
 
   <!-- 固定底栏分享 -->
   <view class="share-bar">
-    <button class="btn-share-bar" open-type="share">📤 发给朋友，也测一份</button>
+    <button class="btn-share-bar" open-type="share">📤 发给朋友，看看你们的关系模式</button>
   </view>
 </view>

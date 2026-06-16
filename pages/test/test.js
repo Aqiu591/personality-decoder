@@ -200,7 +200,14 @@ Page({
   // ──── 计算并完成 ────
   calculateAndFinish(answers) {
     try {
-      const result = calculateResult(answers)
+      // 从历史记录中获取 sessionIndex (首次=0)
+      var sessionIndex = 0
+      try {
+        var history = wx.getStorageSync('testHistory')
+        if (history && history.records) { sessionIndex = history.records.length }
+      } catch (_) {}
+
+      var result = calculateResult(answers, { sessionIndex: sessionIndex })
       if (!result) {
         wx.showToast({ title: '出错了，请重试', icon: 'none' })
         return
@@ -225,7 +232,7 @@ Page({
       })
     } catch (err) {
       console.error('calculateAndFinish 异常:', err)
-      wx.showToast({ title: '出错了: ' + (err.message || '未知'), icon: 'none' })
+      wx.showToast({ title: '出了点小问题，重试一下看看', icon: 'none' })
     }
   },
 

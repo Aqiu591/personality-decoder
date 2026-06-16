@@ -431,6 +431,40 @@
 
 .btn-retest:active { color: var(--text-muted); }
 
+/* ---- 变化档案 ---- */
+.archive-section {
+  margin: 0 28rpx 40rpx;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 36rpx 32rpx;
+  position: relative;
+  z-index: 1;
+  animation: fade-in-up 0.5s ease-out 0.4s both;
+  border-left: 6rpx solid #0EA5E9;
+}
+
+.archive-label {
+  font-size: 28rpx;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 16rpx;
+}
+
+.archive-body {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.archive-invite {
+  margin-top: 16rpx;
+  font-size: 24rpx;
+  color: #0284C7;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
 /* ============================================
    固定底栏分享
    ============================================ */
